@@ -1,0 +1,33 @@
+{
+  "generator-jhipster": {
+    "applicationType": "microservice",
+    "authenticationType": "jwt",
+    "baseName": "patientVitalApplication",
+    "buildTool": "maven",
+    "cacheProvider": "no",
+    "clientFramework": "no",
+    "clientTestFrameworks": null,
+    "clientTheme": null,
+    "creationTimestamp": 1746180771096,
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "enableHibernateCache": null,
+    "enableTranslation": false,
+    "entities": [],
+    "feignClient": false,
+    "jhipsterVersion": "8.10.0",
+    "jwtSecretKey": "NWE1MTUyODJhZGUyYjVjOWFkMTFkMTBiNGZhOTNhZTg3MGM4ZTY1YjE3ODI1YzkzZGY0NjU3ZTBiMmNkN2MxODJkZGVhZjBmNmE5ZDM3MGVjMTk2MzEyNDJhZDA4ZmVmNmQ0MmQwZDQxOWFkN2FjYjllMmQ1NTA3NTMzZWRlYzk=",
+    "microfrontend": null,
+    "microfrontends": [],
+    "nativeLanguage": "en",
+    "packageName": "com.ideas2it.training.patient.vital",
+    "prodDatabaseType": "postgresql",
+    "reactive": false,
+    "serverPort": "9091",
+    "serviceDiscoveryType": "consul",
+    "skipClient": true,
+    "syncUserWithIdp": null,
+    "testFrameworks": [],
+    "withAdminUi": null
+  }
+}

@@ -1,0 +1,50 @@
+# ===================================================================
+# Spring Cloud Consul Config bootstrap configuration for the "dev" profile
+# In prod profile, properties will be overwritten by the ones defined in bootstrap-prod.yml
+# ===================================================================
+
+spring:
+  application:
+    name: patientvitalapplication
+  config:
+    import: optional:configserver:http://localhost:8888
+  profiles:
+    # The commented value for `active` can be replaced with valid Spring profiles to load.
+    # Otherwise, it will be filled in by maven when building the JAR file
+    # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
+    active: '@spring.profiles.active@'
+  cloud:
+    config:
+      fail-fast: true
+      uri: ${CLOUD_CONFIG_URL}
+      label: main
+      profile: dev
+      name: patient-vital-application
+      format: yaml
+      retry:
+        max-attempts: 6
+        initial-interval: 1000
+        multiplier: 1.5
+        max-interval: 5000
+    vault:
+      uri: ${VAULT_URL}
+      authentication: APPROLE
+      app-role:
+        role-id: ${VAULT_ROLE_ID}
+        secret-id: ${VAULT_SECRET_ID}
+      kv:
+        enabled: true
+        backend: secret
+        default-context: patientvitalapplication
+        profile-separator: /
+    consul:
+      discovery:
+        tags:
+          - profile=${spring.profiles.active}
+          - version='@project.version@'
+          - git-version=${git.commit.id.describe:}
+          - git-commit=${git.commit.id.abbrev:}
+          - git-branch=${git.branch:}
+          - context-path=${server.servlet.context-path:}
+      host: localhost
+      port: 8500
