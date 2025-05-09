@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * Feign client to interact with the Patient service.
  */
-@FeignClient(name = "patient-service", url = "http://localhost:9091", configuration = FeignClientConfig.class)
+@FeignClient(name = "patientapplication", configuration = FeignClientConfig.class)
 public interface PatientClient {
 
     @GetMapping("/api/patients/{id}")

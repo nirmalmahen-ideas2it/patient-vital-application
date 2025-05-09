@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 /**
  * Feign client to interact with the User service.
  */
-@FeignClient(name = "user-service", url = "http://localhost:9090", configuration = FeignClientConfig.class)
+@FeignClient(name = "sample", configuration = FeignClientConfig.class)
 public interface UserClient {
 
     @GetMapping("/api/users/{id}")
