@@ -21,7 +21,8 @@ public class VitalSignController {
     @PostMapping
     @Operation(summary = "Create a new vital sign record")
     public ResponseEntity<VitalSignResponse> create(@RequestBody VitalSignRequest request) {
-        return ResponseEntity.ok(service.create(request));
+        VitalSignResponse response = service.create(request);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")

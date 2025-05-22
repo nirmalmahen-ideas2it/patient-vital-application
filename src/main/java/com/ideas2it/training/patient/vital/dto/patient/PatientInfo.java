@@ -1,6 +1,9 @@
 package com.ideas2it.training.patient.vital.dto.patient;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
@@ -8,6 +11,9 @@ import java.time.LocalDate;
  * DTO for returning Patient data.
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PatientInfo {
     private Long id;
     private String medicalRecordNumber;

@@ -3,6 +3,8 @@ package com.ideas2it.training.patient.vital.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ideas2it.training.patient.vital.aop.annotation.AuditLog;
+import com.ideas2it.training.patient.vital.aop.enums.AuditAction;
 import com.ideas2it.training.patient.vital.dto.PagedResponse;
 import com.ideas2it.training.patient.vital.dto.VitalSignRequest;
 import com.ideas2it.training.patient.vital.dto.VitalSignResponse;
@@ -37,6 +39,7 @@ public class VitalSignServiceImpl implements VitalSignService {
     private final ObjectMapper objectMapper;
 
     @Override
+    @AuditLog(action = AuditAction.CREATE, description = "Created Vital Sign")
     public VitalSignResponse create(VitalSignRequest request) {
         try {
             VitalSign vital = mapper.toEntity(request);
@@ -50,6 +53,7 @@ public class VitalSignServiceImpl implements VitalSignService {
     }
 
     @Override
+    @AuditLog(action = AuditAction.UPDATE, description = "Updated Vital Sign")
     public VitalSignResponse update(Long id, VitalSignRequest request) {
         VitalSign vital = vitalSignRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Vital sign not found: " + id));
