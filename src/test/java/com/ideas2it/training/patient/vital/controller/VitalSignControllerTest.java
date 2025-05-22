@@ -51,7 +51,7 @@ class VitalSignControllerTest {
     private JwtDecoder jwtDecoder;
 
     @MockBean
-    private RedisTemplate <String,Object> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     private VitalSignRequest vitalSignRequest;
     private VitalSignResponse vitalSignResponse;

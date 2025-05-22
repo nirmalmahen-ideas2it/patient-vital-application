@@ -11,6 +11,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AuditLog {
     AuditAction action(); // e.g., Create, Update, Delete
+
     String description() default "";
 }
 

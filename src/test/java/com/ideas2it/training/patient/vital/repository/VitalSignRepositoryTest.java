@@ -24,8 +24,11 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @ImportAutoConfiguration(exclude = {LiquibaseAutoConfiguration.class})
 @TestPropertySource(properties = "VAULT_URL=http://localhost:8200")
-
 class VitalSignRepositoryTest {
+
+    @Autowired
+    private VitalSignRepository vitalSignRepository;
+    private VitalSign vitalSign;
 
     @DynamicPropertySource
     static void overrideProperties(DynamicPropertyRegistry registry) {
@@ -33,11 +36,6 @@ class VitalSignRepositoryTest {
         registry.add("spring.datasource.username", () -> "sa");
         registry.add("spring.datasource.password", () -> "");
     }
-
-    @Autowired
-    private VitalSignRepository vitalSignRepository;
-
-    private VitalSign vitalSign;
 
     @BeforeEach
     void setUp() {

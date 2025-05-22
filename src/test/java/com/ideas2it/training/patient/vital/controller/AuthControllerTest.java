@@ -3,8 +3,6 @@ package com.ideas2it.training.patient.vital.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ideas2it.training.patient.vital.config.SecurityConfig;
 import com.ideas2it.training.patient.vital.dto.auth.LoginRequest;
-import com.ideas2it.training.patient.vital.dto.auth.LoginResponse;
-import com.ideas2it.training.patient.vital.dto.auth.LoginResult;
 import com.ideas2it.training.patient.vital.dto.auth.TokenResponse;
 import com.ideas2it.training.patient.vital.web.rest.controller.AuthController;
 import com.ideas2it.training.patient.vital.webclient.PatientClient;
@@ -67,9 +65,9 @@ class AuthControllerTest {
         // Arrange
         LoginRequest request = new LoginRequest("username", "password");
         String token = "validToken";
-        TokenResponse tokenResponse= TokenResponse.builder()
-                .accessToken(token)
-                .build();
+        TokenResponse tokenResponse = TokenResponse.builder()
+            .accessToken(token)
+            .build();
 
         ValueOperations<String, Object> valueOperations = Mockito.mock(ValueOperations.class);
         Mockito.when(redisTemplate.opsForValue()).thenReturn(valueOperations);
@@ -79,9 +77,9 @@ class AuthControllerTest {
 
         // Act & Assert
         ResultActions response = mockMvc.perform(post("/api/authenticate")
-                .header("Authorization", "Bearer " + token)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)));
+            .header("Authorization", "Bearer " + token)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)));
         response.andExpect(status().isOk());
         response.andExpect(jsonPath("$.access_token").value(token));
 
@@ -96,11 +94,11 @@ class AuthControllerTest {
 
         // Act & Assert
         mockMvc.perform(post("/api/authenticate")
-                        .header("Authorization", "Bearer invalidToken")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isUnauthorized())
-                .andExpect(jsonPath("$").value("Invalid credentials"));
+                .header("Authorization", "Bearer invalidToken")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+            .andExpect(status().isUnauthorized())
+            .andExpect(jsonPath("$").value("Invalid credentials"));
     }
 
     @Test
@@ -110,9 +108,9 @@ class AuthControllerTest {
 
         // Act & Assert
         mockMvc.perform(post("/api/authenticate")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isBadRequest());
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+            .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -120,13 +118,13 @@ class AuthControllerTest {
         // Arrange
         LoginRequest request = new LoginRequest("username", "password");
         Mockito.when(patientClient.authenticate(any(LoginRequest.class)))
-                .thenThrow(new RuntimeException("Internal server error"));
+            .thenThrow(new RuntimeException("Internal server error"));
 
         // Act & Assert
         mockMvc.perform(post("/api/authenticate")
-                        .header("Authorization", "Bearer validToken")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isInternalServerError());
+                .header("Authorization", "Bearer validToken")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+            .andExpect(status().isInternalServerError());
     }
 }

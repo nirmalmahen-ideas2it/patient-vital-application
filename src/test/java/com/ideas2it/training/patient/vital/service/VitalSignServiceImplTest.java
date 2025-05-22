@@ -16,13 +16,11 @@ import com.ideas2it.training.patient.vital.webclient.PatientClient;
 import com.ideas2it.training.patient.vital.webclient.UserClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -175,17 +173,17 @@ class VitalSignServiceImplTest {
     @Test
     void testGetAll() {
         // Arrange
-        VitalSign vitalSign1=VitalSign
+        VitalSign vitalSign1 = VitalSign
             .builder()
             .documentedBy(1L)
             .patientId(1L)
             .build();
-        VitalSign vitalSign2=VitalSign
+        VitalSign vitalSign2 = VitalSign
             .builder()
             .documentedBy(2L)
             .patientId(2L)
             .build();
-        List<VitalSign> vitals = List.of(vitalSign1,vitalSign2);
+        List<VitalSign> vitals = List.of(vitalSign1, vitalSign2);
         List<VitalSignResponse> responses = List.of(new VitalSignResponse(), new VitalSignResponse());
 
         when(vitalSignRepository.findAll()).thenReturn(vitals);
@@ -204,28 +202,28 @@ class VitalSignServiceImplTest {
     void testGetAllPaginated() {
         // Arrange
         PageRequest pageRequest = PageRequest.of(0, 2);
-        VitalSign vitalSign1=VitalSign
+        VitalSign vitalSign1 = VitalSign
             .builder()
             .documentedBy(1L)
             .patientId(1L)
             .build();
-        VitalSign vitalSign2=VitalSign
+        VitalSign vitalSign2 = VitalSign
             .builder()
             .documentedBy(2L)
             .patientId(2L)
             .build();
-        List<VitalSign> vitals = List.of(vitalSign1,vitalSign2);
+        List<VitalSign> vitals = List.of(vitalSign1, vitalSign2);
         Page<VitalSign> page = new PageImpl<>(vitals, pageRequest, 2);
         List<VitalSignResponse> responses = List.of(new VitalSignResponse(), new VitalSignResponse());
         when(vitalSignRepository.findAll(pageRequest)).thenReturn(page);
-        UserInfo userInfo= UserInfo
+        UserInfo userInfo = UserInfo
             .builder()
             .id(1L)
             .firstName("John")
             .lastName("Doe")
             .build();
         when(userClient.getUserById(anyLong())).thenReturn(userInfo);
-        PatientInfo patientInfo=PatientInfo
+        PatientInfo patientInfo = PatientInfo
             .builder()
             .id(1L)
             .build();
