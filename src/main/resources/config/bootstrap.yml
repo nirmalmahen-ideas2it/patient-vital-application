@@ -7,7 +7,7 @@ spring:
   application:
     name: patientvitalapplication
   config:
-    import: optional:configserver:http://localhost:8888
+    import: optional:configserver:http://config-server:8888
   profiles:
     # The commented value for `active` can be replaced with valid Spring profiles to load.
     # Otherwise, it will be filled in by maven when building the JAR file
@@ -16,7 +16,7 @@ spring:
   cloud:
     config:
       fail-fast: true
-      uri: ${CLOUD_CONFIG_URL}
+      uri: http://config-server:8888
       label: main
       profile: dev
       name: patient-vital-application
@@ -27,7 +27,7 @@ spring:
         multiplier: 1.5
         max-interval: 5000
     vault:
-      uri: ${VAULT_URL}
+      uri: http://vault:8100
       authentication: APPROLE
       app-role:
         role-id: ${VAULT_ROLE_ID}
@@ -46,5 +46,5 @@ spring:
           - git-commit=${git.commit.id.abbrev:}
           - git-branch=${git.branch:}
           - context-path=${server.servlet.context-path:}
-      host: localhost
+      host: consul
       port: 8500

@@ -35,7 +35,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     excludeAutoConfiguration = {OAuth2ResourceServerAutoConfiguration.class})
 @AutoConfigureMockMvc(addFilters = false)  // disables security filters for test
 @WithMockUser(roles = "USER")
-@TestPropertySource(properties = "VAULT_URL=http://localhost:8200")
+@TestPropertySource(properties = {
+    "spring.cloud.config.enabled=false",
+    "spring.cloud.vault.enabled=false",
+    "spring.cloud.consul.enabled=false"
+})
 class VitalSignControllerTest {
 
     @Autowired

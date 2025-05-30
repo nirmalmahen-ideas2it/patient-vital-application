@@ -1,0 +1,10 @@
+name: health-application
+services:
+  patient-vital-application:
+    image: patient-vitals-application:latest
+    ports:
+      - "9092:9092"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      VAULT_ROLE_ID: cafe3b04-1edf-8fb1-a718-f5645cb89a30
+      VAULT_SECRET_ID: 0735f51b-f14f-c7f5-b889-8e7d069e4f75

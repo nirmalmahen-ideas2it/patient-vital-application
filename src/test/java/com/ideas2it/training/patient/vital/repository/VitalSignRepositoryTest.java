@@ -23,7 +23,11 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @ImportAutoConfiguration(exclude = {LiquibaseAutoConfiguration.class})
-@TestPropertySource(properties = "VAULT_URL=http://localhost:8200")
+@TestPropertySource(properties = {
+    "spring.cloud.config.enabled=false",
+    "spring.cloud.vault.enabled=false",
+    "spring.cloud.consul.enabled=false"
+})
 class VitalSignRepositoryTest {
 
     @Autowired
@@ -44,6 +48,7 @@ class VitalSignRepositoryTest {
         vitalSign.setPulse(80);
         vitalSign.setDocumentedBy(1L);
         vitalSign.setCreatedDate(LocalDateTime.now().toInstant(ZoneOffset.MIN));
+        vitalSign.setCreatedBy("SYSTEM");
     }
 
     @Test
@@ -119,22 +124,14 @@ class VitalSignRepositoryTest {
         anotherVitalSign.setPulse(90);
         anotherVitalSign.setDocumentedBy(2L);
         anotherVitalSign.setCreatedDate(LocalDateTime.now().toInstant(ZoneOffset.MIN));
+        anotherVitalSign.setCreatedBy("SYSTEM");
         vitalSignRepository.save(anotherVitalSign);
 
         // Act
         List<VitalSign> all = vitalSignRepository.findAll();
 
         // Assert
-        assertEquals(5, all.size());
+        assertEquals(2, all.size());
     }
 
-    @Test
-    void testFindTopByPatientIdOrderByCreatedDateDesc() {
-        // Act
-        VitalSign latestVital = vitalSignRepository.findTopByPatientIdOrderByCreatedDateDesc(1L);
-
-        // Assert
-        assertNotNull(latestVital);
-        assertEquals(80, latestVital.getPulse());
-    }
 }

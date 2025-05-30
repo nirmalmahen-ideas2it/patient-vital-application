@@ -224,6 +224,7 @@
   </dependencies>
 
   <build>
+    <finalName>patient-vital-application</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>

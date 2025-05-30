@@ -96,11 +96,13 @@ public class AuditAspect {
                     changes.add(new AuditPayload.AttributeChange("PT INR", StringUtils.EMPTY, String.valueOf(response.getPtInr())));
                 }
             } else {
+                System.out.println("Old Value: " + oldEntity.toString());
+                System.out.println("New Value: " + response.toString());
                 // Fetch from DB and compare for actual change tracking
                 if (oldEntity.getPulse() != null && !oldEntity.getPulse().equals(response.getPulse())) {
                     changes.add(new AuditPayload.AttributeChange("Pulse", String.valueOf(oldEntity.getPulse()), String.valueOf(response.getPulse())));
                 }
-                if (oldEntity.getBloodPressure() != null && !oldEntity.getBloodPressure().equals(response.getBloodPressure())) {
+                if (oldEntity.getBloodPressure() != null && !oldEntity.getBloodPressure().equalsIgnoreCase(response.getBloodPressure())) {
                     changes.add(new AuditPayload.AttributeChange("Blood Pressure", oldEntity.getBloodPressure(), response.getBloodPressure()));
                 }
                 if (oldEntity.getTemperature() != null && !oldEntity.getTemperature().equals(response.getTemperature())) {

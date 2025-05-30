@@ -35,7 +35,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = AuthController.class, excludeAutoConfiguration = {OAuth2ResourceServerAutoConfiguration.class})
 @Import(SecurityConfig.class)
 @WithMockUser(roles = "USER")
-@TestPropertySource(properties = "VAULT_URL=http://localhost:8200")
+@TestPropertySource(properties = {
+    "spring.cloud.config.enabled=false",
+    "spring.cloud.vault.enabled=false",
+    "spring.cloud.consul.enabled=false"
+})
 class AuthControllerTest {
 
     @Autowired
